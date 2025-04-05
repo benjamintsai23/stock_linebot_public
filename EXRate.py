@@ -61,24 +61,19 @@ def exchange_currency(code) :
     return content
 
 # 查詢匯率
-def showCurrency(code) -> "JPY": # code 為外幣代碼
+def showCurrency(code):  # code 為外幣代碼
     content = ""
     currency_name = getCurrencyName(code)
-    if currency_name == "無可支援的外幣": return "無可支援的外幣"
-    # 資料格式 {貨幣代碼: (時間, 現金買入, 現金賣出, 即期買入, 即期賣出), ...}
+    if currency_name == "無可支援的外幣":
+        return "無可支援的外幣"
     currency = twder.now(code) 
-    # 當下時間
     now_time = str(currency[0])
-    # 銀行現金買入價格
     buying_cash = "無資料" if currency[1] == '-' else str(float(currency[1])) 
-    # 銀行現金賣出價格
     sold_cash = "無資料" if currency[2] == '-' else str(float(currency[2])) 
-    # 銀行即期買入價格
     buying_spot = "無資料" if currency[3] == '-' else str(float(currency[3])) 
-    # 銀行即期賣出價格
     sold_spot = "無資料" if currency[4] == '-' else str(float(currency[4])) 
 
-   content += (
+    content += (
         f"{currency_name} 最新掛牌時間為: {now_time}\n"
         f"----------\n"
         f"現金買入價格: {buying_cash}\n"
@@ -86,6 +81,7 @@ def showCurrency(code) -> "JPY": # code 為外幣代碼
         f"即期買入價格: {buying_spot}\n"
         f"即期賣出價格: {sold_spot}\n"
     )
+    return content
     
 ##--------------------------------------------
 #######     走勢圖
